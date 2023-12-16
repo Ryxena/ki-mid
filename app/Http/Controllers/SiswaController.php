@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Helper;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
