@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Helper;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserMiddleware
@@ -17,18 +17,10 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $data = $request->all();
-        $validationResult = Helper::validate($data);
+        if (Auth::check()) {
+            return $next($request);
+        }
 
-        if ($validationResult !== true) {
-            return response()->json(['error' => $validationResult], 401);
-        }
-        $accessTokenDate = Carbon::parse($data['access_token'])->format('Y-m-d');
-        $currentDate = Carbon::now()->format('Y-m-d');
-        if ($accessTokenDate !== $currentDate) {
-            return response()->json(['error' => 'Access token expired'], 401);
-        }
-        
-        return $next($request);
+        return redirect('/login');
     }
 }
