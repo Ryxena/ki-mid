@@ -17,10 +17,14 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            return $next($request);
+        if (Auth::check() && ($request->path() == 'login' || $request->path() == 'register')) {
+            return redirect('/dashboard');
         }
 
-        return redirect('/login');
+        if (!Auth::check() && $request->path() != 'login' && $request->path() != 'register') {
+            return redirect('/login');
+        }
+
+        return $next($request);
     }
 }
