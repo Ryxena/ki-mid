@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\ValidationController;
@@ -16,10 +17,8 @@ use App\Http\Controllers\ValidationController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-// Route::get('/coba', [ValidationController::class, 'status'])->middleware('user.token');;
+Route::get('/',  [PostController::class, 'index']);
+Route::get('/post/{lang}/{slug}',  [PostController::class, 'show']);
 Route::get('/register',  [UserController::class, 'create'])->middleware('auth.user');
 Route::post('/register',  [UserController::class, 'store'])->name('signup');
 Route::get('/login',  [UserController::class, 'logon'])->middleware('auth.user');
