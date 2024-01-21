@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Service\UserService;
 use Illuminate\Http\Request;    
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -97,5 +98,13 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Dsiplay repo
+     */
+    public function repo() 
+    {
+        return UserService::isVerified();
     }
 }
