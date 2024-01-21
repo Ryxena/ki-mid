@@ -24,3 +24,6 @@ Route::post('/register',  [UserController::class, 'store'])->name('signup');
 Route::get('/login',  [UserController::class, 'logon'])->middleware('auth.user');
 Route::post('/login',  [UserController::class, 'login'])->name('login');
 Route::get('dashboard',  [UserController::class, 'index'])->middleware('auth.user');
+Route::prefix('users')->group(function() {
+    Route::get('/', [UserController::class, 'repo']);
+});
