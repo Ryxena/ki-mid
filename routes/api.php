@@ -15,10 +15,13 @@ use App\Http\Controllers\SiswaController;
 |
 */
 
-Route::post('/siswa', [SiswaController::class, 'store']);
-Route::put('/siswa', [SiswaController::class, 'edit']);
-Route::delete('/siswa', [SiswaController::class, 'delete']);
-Route::get('/siswa', [SiswaController::class, 'show']);
 Route::get('/', function() {
     return "it works";
+});
+Route::prefix('siswa')->group(function () {
+    Route::get('/', [SiswaController::class, "show"]);
+    Route::get('/detail/{nis}', [SiswaController::class, "detail"]);
+    Route::post('/create', [SiswaController::class, "create"]);
+    Route::patch('/update', [SiswaController::class, "update"]);
+    Route::delete('/delete', [SiswaController::class, "destroy"]);
 });
