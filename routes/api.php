@@ -19,3 +19,6 @@ Route::post('/siswa', [SiswaController::class, 'store']);
 Route::put('/siswa', [SiswaController::class, 'edit']);
 Route::delete('/siswa', [SiswaController::class, 'delete']);
 Route::get('/siswa', [SiswaController::class, 'show']);
+Route::get('/', function() {
+    return "it works";
+});
