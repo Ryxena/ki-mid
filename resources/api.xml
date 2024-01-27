@@ -1,0 +1,16 @@
+<root>
+    <siswa>
+        <student>
+            <id>1</id>
+            <nama>Tom</nama>
+            <aktivitas>Belajar</aktivitas>
+            <tanggal>Januari 2022</tanggal>
+        </student>
+        <student>
+            <id>2</id>
+            <nama>Nisa</nama>
+            <aktivitas>Coding</aktivitas>
+            <tanggal>Januari 2022</tanggal>
+        </student>
+    </siswa>
+</root>

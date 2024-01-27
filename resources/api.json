@@ -1,0 +1,16 @@
+{
+    "siswa": [
+        {
+            "id": 1,
+            "nama": "Tom",
+            "aktivitas": "Belajar",
+            "tanggal": "Januari 2022"
+        },
+        {
+            "id": 2,
+            "nama": "Nisa",
+            "aktivitas": "Coding",
+            "tanggal": "Januari 2022"
+        }
+    ]
+}
