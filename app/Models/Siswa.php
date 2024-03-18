@@ -11,4 +11,6 @@ class Siswa extends Model
     protected $table = "siswa";
     protected $fillable = ['nis', 'nama', 'jurusan'];
     protected $primaryKey = 'nis';
+
+
 }
