@@ -37,7 +37,7 @@ class addUser extends Command
             $password = Hash::make('12345678');
 
             User::create([
-                'nama' => $name,
+                'name' => $name,
                 'email' => $email,
                 'password' => $password,
             ]);

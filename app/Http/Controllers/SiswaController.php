@@ -6,14 +6,17 @@ use Helper;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
 {
     /**
      * View all Data using Eloquent
      */
-    
-    public function show() {
+
+    public function show()
+    {
         $siswa = Siswa::all();
         return response()->json([
             "data" => $siswa
@@ -42,7 +45,7 @@ class SiswaController extends Controller
     /**
      * Update data siswa using Eloquent
      */
-    
+
     public function update(Request $request)
     {
         $siswa = Siswa::where('nis', $request->get("nis"))->first();
@@ -62,7 +65,7 @@ class SiswaController extends Controller
     /**
      * Delete data using Eloquent
      */
-    
+
     public function destroy(Request $request)
     {
         $siswa = Siswa::where('nis', $request->get('nis'))->first();
@@ -79,10 +82,10 @@ class SiswaController extends Controller
     /**
      * Get Siswa
      */
-     public function detail($nis) 
-     {
+    public function detail($nis)
+    {
         $siswa = Siswa::where('nis', $nis)->first();
-        if($siswa) {
+        if ($siswa) {
             return response()->json([
                 "msg" => "Akun dengan nis $nis Ditemukan",
                 "data" => $siswa
@@ -92,5 +95,5 @@ class SiswaController extends Controller
                 "msg" => "Terjadi kesalahan saat menghapus data"
             ], 500);
         }
-     }
+    }
 }
