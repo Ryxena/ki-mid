@@ -27,3 +27,6 @@ Route::get('dashboard',  [UserController::class, 'index'])->middleware('auth.use
 Route::prefix('users')->group(function() {
     Route::get('/', [UserController::class, 'repo']);
 });
+Route::get('/landing', function () {
+    return view('web.landing-page.index');
+});
