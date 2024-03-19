@@ -1,0 +1,149 @@
+@font-face {
+    font-family: 'NunitoSans';
+    src: url('../assets//fonts/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf');
+}
+
+/* header */
+.header {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.header-list li {
+    list-style: none;
+}
+
+.header-list li a {
+    text-decoration: none;
+}
+
+.header-list li:nth-child(1) a {
+    color: salmon;
+    font-weight: 600;
+}
+
+.header-list li:nth-child(2) a {
+    padding: 7px 25px;
+    color: white;
+    background-color: salmon;
+    border-radius: 10px;
+}
+
+/* FOOTER */
+footer {
+    font-family: 'NunitoSans';
+}
+
+.footer-1 {
+    background-color: salmon;
+}
+
+.footer-logo img {
+    filter: grayscale(1);
+}
+
+.footer-logo p {
+    color: gray;
+}
+
+.footer-list {
+    list-style: none;
+    color: gray;
+}
+
+.footer-list li {
+    margin: 10px 0;
+}
+
+.footer-list a {
+    color: gray;
+    text-decoration: none;
+}
+
+.footer-layanan ul,
+.footer-support ul {
+    padding: 0;
+}
+
+.footer-layanan h1,
+.footer-support h1 {
+    font-size: 20px;
+}
+
+/* hero */
+.hero {
+    font-family: 'NunitoSans';
+    width: 90vw;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 20rem;
+}
+
+.hero::before {
+    content: '';
+    width: 600px;
+    height: 500px;
+    background-image: url('../assets/images/Ellipse\ 2.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    left: -5px;
+    bottom: -100px;
+    z-index: -999;
+}
+
+.hero::after {
+    content: '';
+    width: 600px;
+    height: 500px;
+    background-image: url('../assets/images/Ellipse\ 1.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -999;
+}
+
+.hero-text .top {
+    color: green;
+    font-weight: 700;
+}
+
+.hero h1 {
+    font-weight: 800;
+}
+
+.hero-button a:nth-child(1) {
+    background-color: salmon;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.hero-button a:nth-child(2) {
+    background-color: rgba(250, 128, 114, 0.164);
+    color: salmon;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+/* card */
+.card-container {
+    padding: 10px 0 120px 0;
+}
+
+.card {
+    width: 20%;
+    height: 25rem;
+    text-align: center;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card img {
+    margin: auto;
+}
