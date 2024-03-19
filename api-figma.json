@@ -1,0 +1,976 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "API Figma",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://api.server.test/v1"
+        },
+        {
+            "url": "http://127.0.0.1:8000/v1"
+        }
+    ],
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "summary": "User Login",
+                "description": "User login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "required": true,
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "required": true,
+                                        "minLength": 8
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Joko": {
+                                    "value": {
+                                        "email": "joko@mail.com",
+                                        "password": "12345678"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success to login",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "datas": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email"
+                                                }
+                                            }
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Joko": {
+                                        "value": {
+                                            "msg": "Success login",
+                                            "code": 200,
+                                            "datas": {
+                                                "name": "Joko",
+                                                "email": "joko@mail.com"
+                                            },
+                                            "token": "1|193u1n39cur1wjd1u0r9wjdqdkj0934190"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "errBadRequest": {
+                                        "value": {
+                                            "msg": "Login Failed",
+                                            "code": 400,
+                                            "errors": "Check your email or password"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "password": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "errValidate": {
+                                        "value": {
+                                            "msg": "Login Failed",
+                                            "code": 422,
+                                            "errors": {
+                                                "email": [
+                                                    "email required",
+                                                    "should be email format"
+                                                ],
+                                                "password": [
+                                                    "password required",
+                                                    "password must be at least 8"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "summary": "User Register",
+                "description": "User Register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "required": true,
+                                        "format": "email"
+                                    },
+                                    "no_telp": {
+                                        "type": "string",
+                                        "required": true,
+                                        "maxLength": 13,
+                                        "minLength": 11
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "required": true,
+                                        "minLength": 8
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "user1": {
+                                    "value": {
+                                        "name": "Joko",
+                                        "email": "joko@mail.com",
+                                        "no_telp": "081212121221",
+                                        "password": "12345678"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success to register",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "datas": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "no_telp": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Joko": {
+                                        "value": {
+                                            "msg": "Register success, please login",
+                                            "code": 200,
+                                            "datas": {
+                                                "name": "Joko",
+                                                "email": "joko@mail.com",
+                                                "no_telp": "081212121221"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "no_telp": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "password": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "errValidate": {
+                                        "value": {
+                                            "msg": "Error Validation",
+                                            "code": 422,
+                                            "errors": {
+                                                "name": [
+                                                    "name required"
+                                                ],
+                                                "email": [
+                                                    "email required",
+                                                    "should be email format"
+                                                ],
+                                                "no_telp": [
+                                                    "no_telp required",
+                                                    "no_telp must be at least 11",
+                                                    "no_telp already max 13"
+                                                ],
+                                                "password": [
+                                                    "password required",
+                                                    "password must be at least 8"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/individuals/profile/{user_id}": {
+            "put": {
+                "summary": "Update User",
+                "description": "Get user by id to updated",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "required": true,
+                                        "minLength": 5
+                                    },
+                                    "born_date": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "age": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "physical_condition": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "health": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "body_weight": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "body_height": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "province": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "district": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "village": {
+                                        "type": "string",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true,
+                        "description": "To get user by id for updated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success get individu by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "datas": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "born_date": {
+                                                    "type": "string"
+                                                },
+                                                "age": {
+                                                    "type": "integer"
+                                                },
+                                                "gender": {
+                                                    "type": "string"
+                                                },
+                                                "physical_condition": {
+                                                    "type": "string"
+                                                },
+                                                "health": {
+                                                    "type": "string"
+                                                },
+                                                "body_weight": {
+                                                    "type": "integer"
+                                                },
+                                                "body_height": {
+                                                    "type": "integer"
+                                                },
+                                                "province": {
+                                                    "type": "string"
+                                                },
+                                                "city": {
+                                                    "type": "string"
+                                                },
+                                                "district": {
+                                                    "type": "string"
+                                                },
+                                                "village": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Data Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "born_date": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "age": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "gender": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "physical_condition": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "health": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "body_weight": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "body_height": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "province": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "city": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "district": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "village": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/individuals": {
+            "get": {
+                "summary": "get all individuals",
+                "description": "get all individuals",
+                "responses": {
+                    "200": {
+                        "description": "success get all individuals",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "datas": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "gender": {
+                                                        "type": "string"
+                                                    },
+                                                    "age": {
+                                                        "type": "integer"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/profile": {
+            "get": {
+                "summary": "Get my profile",
+                "description": "Get my profile",
+                "responses": {
+                    "200": {
+                        "description": "Get my profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "datas": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "no_telp": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Data Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update profile",
+                "description": "update profile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "required": true,
+                                        "format": "email"
+                                    },
+                                    "no_telp": {
+                                        "type": "string",
+                                        "minLength": 11,
+                                        "maxLength": 13
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success update profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "datas": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "no_telp": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "no_telp": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/profile/password": {
+            "put": {
+                "summary": "update password",
+                "description": "update password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "old_password": {
+                                        "type": "string",
+                                        "required": true,
+                                        "minLength": 8
+                                    },
+                                    "new_password": {
+                                        "type": "string",
+                                        "required": true,
+                                        "minLength": 8
+                                    },
+                                    "confirm_password": {
+                                        "type": "string",
+                                        "required": true,
+                                        "minLength": 8
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success update password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/ingredient": {
+            "post": {
+                "summary": "Add ingredient",
+                "description": "add ingredient for today",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "weight": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "add ingredient for today",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "datas": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "weight": {
+                                                    "type": "integer"
+                                                },
+                                                "category": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "weight": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "category": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "get all ingredients today",
+                "description": "get all ingredients today",
+                "responses": {
+                    "200": {
+                        "description": "get all ingredients today",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "datas": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "weight": {
+                                                        "type": "integer"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
